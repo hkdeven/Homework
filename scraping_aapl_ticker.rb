@@ -1,26 +1,22 @@
-# class RubyStock
-# 	require 'net/http'
-#     def RubyStock::getStocks(*symbols)
-#         Hash[*(symbols.collect{|symbol|[symbol,Hash[\
-#         *(Net::HTTP.get('quote.yahoo.com','/d?f=nl1&s='+symbol).chop\
-#         .split(',').unshift("Name").insert(2,"Price"))]];}.flatten)];
-#     end
-# end
-#
-# puts RubyStock::getStocks("MSFT", "IBM", "GOOG").inspect
-
+require 'date'
 require 'yahoo_finance'
-    require 'date'
+require 'colorize'
+symbl = ARGV[0]
 
-		require 'yahoo_finance'
+stock = YahooFinance::Stock.new([symbl], [:bid, :company_name, :annualized_gain, :day_value_change, :previous_close, :open, :day_value_change])
 
-	     stock = YahooFinance::Stock.new(['AAPL'], [:market_cap, :bid, :brokers_count, :upgrades_downgrades_history])
-	     # look at available fields you could fetch with this library
-	     stock.available_fields
+	results = stock.fetch
+	aapl_name = results[symbl][:company_name]
+	aapl_bid = results[symbl][:bid]
+	aapl_preclos = results[symbl][:previous_close]
+	aapl_open = results[symbl][:open]
+	aapl_day_valchg = results[symbl][:day_value_change]
+	aapl_ann_gain = results[symbl][:annualized_gain]
 
-	     stock.add_field(:last_trade_price_only)
-
-	     results = stock.fetch
-	     aapl_bid = results["AAPL"]"$"[:bid]
-
-			puts aapl_bid
+puts aapl_name.to_s.center(30).white.on_black
+puts "Current Price".center(30)
+puts aapl_bid.to_s.center(30).green
+puts "Previous Close".center(30)
+puts aapl_preclos.to_s.center(30)
+puts "Opening".center(30)
+puts aapl_open.to_s.center(30)
