@@ -19,7 +19,7 @@ stock = YahooFinance::Stock.new([symbl], [:bid, :company_name, :annualized_gain,
 
 puts aapl_name.center(30).white.on_black
 puts "Current Price".center(30)
-puts aapl_bid.to_s.center(30).green
+puts "$#{aapl_bid.to_s}".center(30).green
 puts "Previous Close".center(30)
 puts aapl_preclos.to_s.center(30)
 puts "Opening".center(30)
