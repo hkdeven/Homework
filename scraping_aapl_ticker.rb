@@ -1,4 +1,4 @@
-require 'date'
+# require 'date'
 require 'yahoo_finance'
 require 'colorize'
 symbl = ARGV[0]
